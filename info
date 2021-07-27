@@ -1,0 +1,3 @@
+loader.py
+bot = Bot(token=config.BOT_TOKEN, parse_mode='HTML')
+
