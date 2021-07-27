@@ -10,7 +10,7 @@ choice = InlineKeyboardMarkup(
                 item_name='pear', quantity=1
             )),
             InlineKeyboardButton(text='Купить яблоки', callback_data=buy_callback.new(
-                item_name='apple', quantity=1
+                item_name='apple', quantity=5
             )),
         ],
         [

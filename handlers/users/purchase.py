@@ -20,15 +20,19 @@ async def buying_apples(call: CallbackQuery, callback_data: dict):
     await call.answer(cache_time=60)
     logging.info(f'call = {callback_data}')
     quantity = callback_data.get('quantity')
-    await call.message.answer('Вы выбрали грушу. Груша всего одна. Спасибо.',
+    await call.message.answer(f'Вы выбрали яблоки. Яблок осталось {quantity}. Спасибо.',
                               reply_markup=apples_keyboard)
 
 
-@dp.callback_query_handler(text_contains='pear')
-async def buying_pear(call: CallbackQuery):
+@dp.callback_query_handler(buy_callback.filter(item_name='pear'))
+async def buying_pear(call: CallbackQuery, callback_data: dict):
     await call.answer(cache_time=60)
-    callback_data = call.data
     logging.info(f'call = {callback_data}')
-
     await call.message.answer('Вы выбрали грушу. Груша всего одна. Спасибо.',
                               reply_markup=pear_keyboard)
+
+
+@dp.callback_query_handler(text='cancel')
+async def cancel_buying(call: CallbackQuery):
+    await call.answer('Вы отменили эту покупку', show_alert=True)
+    await call.message.edit_reply_markup()
